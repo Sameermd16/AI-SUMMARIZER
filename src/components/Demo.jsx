@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { copy, linkIcon, loader, tick } from '../assets'
 import { BiSubdirectoryRight } from "react-icons/bi"
+import { useLazyGetSummaryQuery } from '../services/article'
 
 export default function Demo() {
     const [article, setArticle] = useState(
@@ -9,6 +10,7 @@ export default function Demo() {
             summary: ""
         }
     )
+    const [getSummary, { error, isFetching }] = useLazyGetSummaryQuery()
     console.log(article.url)
     function handleSubmit() {
         console.log('submitted')
