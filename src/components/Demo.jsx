@@ -4,16 +4,24 @@ import { BiSubdirectoryRight } from "react-icons/bi"
 import { useLazyGetSummaryQuery } from '../services/article'
 
 export default function Demo() {
-    const [article, setArticle] = useState(
-        {
-            url: "",
-            summary: ""
-        }
-    )
+    const [article, setArticle] = useState({
+        url: '',
+        summary: ''
+    })
+    console.log(article)
+    const [allArticles, setAllArticles] = useState([])
     const [getSummary, { error, isFetching }] = useLazyGetSummaryQuery()
-    console.log(article.url)
-    function handleSubmit() {
-        console.log('submitted')
+
+    async function handleSubmit(e) {
+        e.preventDefault()
+        const {data} = await getSummary({ articleUrl: article.url })
+        console.log(data)
+        if(data?.summary) {
+            const newArticle = { ...article, summary: data.summary}
+            setArticle(newArticle)
+            const updatedAllArticles = [newArticle, ...allArticles]
+            setAllArticles(updatedAllArticles)
+        }
     }
     return (
         <section className='mt-16 w-full max-w-xl'>
@@ -38,7 +46,9 @@ export default function Demo() {
                         <BiSubdirectoryRight />
                     </button>
                 </form>
+                {/* browser url history */}
             </div>
-        </section>
+            {/* display results */}
+        </section> 
     )
 }

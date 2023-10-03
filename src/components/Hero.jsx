@@ -13,7 +13,7 @@ export default function Hero() {
           Github
         </button>
       </nav>
-
+ 
       <h1 className='head_text'>
         Summarize articles with <br className='max-md:hidden' />
         <span className='orange_gradient'>OpenAI GPT-4</span>
